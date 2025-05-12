@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TU-K French Club Member Sign-Up</title>
+    <style>
+        /* Main Styles */
+        :root {
+            --french-blue: #0055a4;
+            --french-white: #ffffff;
+            --french-red: #ef4135;
+            --accent-color: #28a745;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+            background-image: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--french-blue), var(--french-red));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="50" font-family="Arial" font-size="20" fill="rgba(255,255,255,0.1)">Je parle français</text></svg>');
+            opacity: 0.3;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.3s;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--french-blue);
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--french-red);
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--french-blue);
+            box-shadow: 0 0 0 3px rgba(0, 85, 164, 0.2);
+            outline: none;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .radio-option input {
+            width: auto;
+        }
+        
+        /* Button Styles */
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-submit {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-submit:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+        }
+        
+        .btn-reset {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-reset:hover {
+            background-color: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(1.2);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Confetti animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--french-blue);
+            opacity: 0;
+            z-index: 1000;
+            animation: confettiFall 3s ease-out forwards;
+        }
+        
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 1.5rem 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>TU-K French Club Member Sign-Up</h1>
+            <p class="subtitle">Coucou et bienvenue! Join us for a fun and Frenchy year!</p>
+        </div>
+    </header>
+    
+    <main class="container">
+        <form id="signupForm" class="form-container">
+            <div class="form-group">
+                <label for="sessionType" class="required">Which session will you attend?</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="sessionType" value="Online" id="online">
+                        Online
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="sessionType" value="In-person" id="inperson">
+                        In-person
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="firstName" class="required">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="surname" class="required">Surname</label>
+                <input type="text" id="surname" name="surname" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">Membership Type</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="memberType" value="Bonafide" id="bonafide">
+                        Bonafide (TU-K student)
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="memberType" value="Associate" id="associate">
+                        Associate (Non-TU-K student)
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="institution" class="required">Institution</label>
+                <input type="text" id="institution" name="institution" required>
+            </div>
+            
+            <div class="form-group" id="regNoGroup">
+                <label for="regNo">Student Registration Number</label>
+                <input type="text" id="regNo" name="regNo" placeholder="For TU-K students only">
+            </div>
+            
+            <div class="form-group">
+                <label for="membershipNo">Club Membership Number</label>
+                <input type="text" id="membershipNo" name="membershipNo" placeholder="Number given by the club">
+            </div>
+            
+            <div class="form-group">
+                <label for="course" class="required">Course</label>
+                <input type="text" id="course" name="course" placeholder="e.g. Civil Engineering, IT, Int'l Relations" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">Student Level</label>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="studentLevel" value="Undergraduate" id="undergrad">
+                        Undergraduate
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="studentLevel" value="Graduate" id="graduate">
+                        Graduate
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone" class="required">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="suggestions">Suggestions for the French Club</label>
+                <textarea id="suggestions" name="suggestions" rows="4" placeholder="Optional suggestions"></textarea>
+            </div>
+            
+            <div class="btn-container">
+                <button type="submit" class="btn-submit">Submit</button>
+                <button type="reset" class="btn-reset">Clear Form</button>
+            </div>
+        </form>
+    </main>
+    
+    <footer>
+        <p>majimboanyangu50@gmail.com | TU-K French Club © 2022</p>
+        <p>N'envoyez jamais de mots de passe via ce formulaire.</p>
+    </footer>
+     <script src="assets/js/Script.js"></script>
+</body>
+</html>
